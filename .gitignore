@@ -1,0 +1,8 @@
+build*/
+dist/
+projects/
+exports/
+artifacts/
+.proteuslab_recent.txt
+*.exe
+*.dll
