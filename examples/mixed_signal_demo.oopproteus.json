@@ -1,0 +1,134 @@
+{
+    "format": "OOPProteusProject",
+    "schemaVersion": 2,
+    "projectName": "Mixed Signal Demo",
+    "canvas": {
+        "width": 1120,
+        "height": 790,
+        "gridSize": 20
+    },
+    "logicThresholds": {
+        "lowMaximum": 1.5,
+        "highMinimum": 3.5
+    },
+    "components": [
+        {
+            "id": "gnd1",
+            "type": "ground",
+            "label": "GND1",
+            "x": 560,
+            "y": 620,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {},
+            "runtime": {}
+        },
+        {
+            "id": "v1",
+            "type": "dc_source",
+            "label": "V1",
+            "x": 180,
+            "y": 340,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {
+                "voltage": {"type": "number", "value": 5.0}
+            },
+            "runtime": {}
+        },
+        {
+            "id": "clk1",
+            "type": "clock",
+            "label": "CLK1",
+            "x": 180,
+            "y": 180,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {
+                "frequency": {"type": "number", "value": 2.0},
+                "dutyCycle": {"type": "number", "value": 50.0},
+                "highVoltage": {"type": "number", "value": 5.0}
+            },
+            "runtime": {}
+        },
+        {
+            "id": "and1",
+            "type": "and_gate",
+            "label": "AND1",
+            "x": 500,
+            "y": 260,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {
+                "inputCount": {"type": "integer", "value": 2},
+                "highVoltage": {"type": "number", "value": 5.0},
+                "propagationDelay": {"type": "number", "value": 0.000001}
+            },
+            "runtime": {}
+        },
+        {
+            "id": "led1",
+            "type": "led",
+            "label": "LED1",
+            "x": 820,
+            "y": 260,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {
+                "color": {"type": "string", "value": "#ff3b4f"},
+                "forwardVoltage": {"type": "number", "value": 2.0},
+                "seriesResistance": {"type": "number", "value": 330.0}
+            },
+            "runtime": {}
+        }
+    ],
+    "wires": [
+        {
+            "id": "w1",
+            "start": {"componentId": "v1", "pinId": "N"},
+            "end": {"componentId": "gnd1", "pinId": "G"},
+            "waypoints": [{"x": 180, "y": 620}]
+        },
+        {
+            "id": "w2",
+            "start": {"componentId": "clk1", "pinId": "GND"},
+            "end": {"componentId": "gnd1", "pinId": "G"},
+            "waypoints": [{"x": 320, "y": 620}]
+        },
+        {
+            "id": "w3",
+            "start": {"componentId": "clk1", "pinId": "OUT"},
+            "end": {"componentId": "and1", "pinId": "IN0"},
+            "waypoints": [{"x": 360, "y": 180}, {"x": 360, "y": 240}]
+        },
+        {
+            "id": "w4",
+            "start": {"componentId": "clk1", "pinId": "OUT"},
+            "end": {"componentId": "and1", "pinId": "IN1"},
+            "waypoints": [{"x": 400, "y": 180}, {"x": 400, "y": 280}]
+        },
+        {
+            "id": "w5",
+            "start": {"componentId": "and1", "pinId": "OUT"},
+            "end": {"componentId": "led1", "pinId": "A"},
+            "waypoints": [{"x": 680, "y": 260}]
+        },
+        {
+            "id": "w6",
+            "start": {"componentId": "led1", "pinId": "K"},
+            "end": {"componentId": "gnd1", "pinId": "G"},
+            "waypoints": [{"x": 820, "y": 620}]
+        }
+    ],
+    "junctions": [],
+    "simulation": {
+        "state": "stopped",
+        "timeSeconds": 0.0,
+        "timeStepSeconds": 0.001
+    }
+}

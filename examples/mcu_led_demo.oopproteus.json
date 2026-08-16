@@ -1,0 +1,115 @@
+{
+    "format": "OOPProteusProject",
+    "schemaVersion": 2,
+    "projectName": "MCU LED Demo",
+    "canvas": {
+        "width": 1120,
+        "height": 790,
+        "gridSize": 20
+    },
+    "logicThresholds": {
+        "lowMaximum": 1.5,
+        "highMinimum": 3.5
+    },
+    "components": [
+        {
+            "id": "gnd1",
+            "type": "ground",
+            "label": "GND1",
+            "x": 540,
+            "y": 650,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {},
+            "runtime": {}
+        },
+        {
+            "id": "v1",
+            "type": "dc_source",
+            "label": "V1",
+            "x": 180,
+            "y": 340,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {
+                "voltage": {"type": "number", "value": 5.0}
+            },
+            "runtime": {}
+        },
+        {
+            "id": "mcu1",
+            "type": "microcontroller",
+            "label": "MCU1",
+            "x": 500,
+            "y": 300,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {
+                "clockHz": {"type": "number", "value": 1000.0},
+                "firmwarePath": {"type": "string", "value": "firmware/port_pattern.hex"}
+            },
+            "runtime": {
+                "pc": {"type": "integer", "value": 0},
+                "halted": {"type": "boolean", "value": false}
+            },
+            "flashBase64": "AQBVBwAA/w=="
+        },
+        {
+            "id": "led1",
+            "type": "led",
+            "label": "LED1",
+            "x": 840,
+            "y": 260,
+            "rotation": 0,
+            "mirrorHorizontal": false,
+            "mirrorVertical": false,
+            "properties": {
+                "color": {"type": "string", "value": "#25d98f"},
+                "forwardVoltage": {"type": "number", "value": 2.0},
+                "seriesResistance": {"type": "number", "value": 330.0}
+            },
+            "runtime": {}
+        }
+    ],
+    "wires": [
+        {
+            "id": "w1",
+            "start": {"componentId": "v1", "pinId": "N"},
+            "end": {"componentId": "gnd1", "pinId": "G"},
+            "waypoints": [{"x": 180, "y": 650}]
+        },
+        {
+            "id": "w2",
+            "start": {"componentId": "v1", "pinId": "P"},
+            "end": {"componentId": "mcu1", "pinId": "VCC"},
+            "waypoints": [{"x": 360, "y": 340}, {"x": 360, "y": 160}]
+        },
+        {
+            "id": "w3",
+            "start": {"componentId": "mcu1", "pinId": "GND"},
+            "end": {"componentId": "gnd1", "pinId": "G"},
+            "waypoints": [{"x": 500, "y": 650}]
+        },
+        {
+            "id": "w4",
+            "start": {"componentId": "mcu1", "pinId": "PA0"},
+            "end": {"componentId": "led1", "pinId": "A"},
+            "waypoints": [{"x": 700, "y": 260}]
+        },
+        {
+            "id": "w5",
+            "start": {"componentId": "led1", "pinId": "K"},
+            "end": {"componentId": "gnd1", "pinId": "G"},
+            "waypoints": [{"x": 840, "y": 650}]
+        }
+    ],
+    "junctions": [],
+    "simulation": {
+        "state": "stopped",
+        "timeSeconds": 0.0,
+        "timeStepSeconds": 0.001
+    }
+}
